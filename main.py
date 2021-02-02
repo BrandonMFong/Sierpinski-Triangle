@@ -1,18 +1,19 @@
-# main.py
-# Brando 1/26/2021
-# 
 """
-Generate the data of the following task:
+main.py
+Author: Brando 
 
-Using the three points A(0,0), B(1,2) and C(2,0).
+Problem: 
+    Generate the data of the following task:
 
-Starting at the point X (1,1) repeat the following steps 10,000 times
+    Using the three points A(0,0), B(1,2) and C(2,0).
 
-1. roll a dice (random number generator) and allocate each number with one of the points
+    Starting at the point X (1,1) repeat the following steps 10,000 times
 
-2. update the point X as the midpoint between X and the associated point, e.g.. A if the roll was 1 or 2, B if the roll was 3 or 4, C otherwise
+    1. roll a dice (random number generator) and allocate each number with one of the points
 
-Keep track of the updated Xs and plot where the points in a scatterplot
+    2. update the point X as the midpoint between X and the associated point, e.g.. A if the roll was 1 or 2, B if the roll was 3 or 4, C otherwise
+
+    Keep track of the updated Xs and plot where the points in a scatterplot
 """
 
 ### Modules ###
@@ -21,6 +22,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 
 ### Variables ### 
+size = 0
 xAxis = 0
 yAxis = 1
 indexArray = 1
@@ -34,15 +36,9 @@ xPointArray = np.zeros([loopLimit,2])
 
 print("\nWeek 1\n=====================\n")
 
-# "Starting at the point X (1,1)"
-xPointArray[0] = arrayX
-
-print("c array x value: ", arrayC[xAxis], ", y value: ", arrayC[yAxis])
-print("X point array dimensions: ", xPointArray.shape)
-
-print("\nX Point values before:\n", xPointArray)
-
-while indexArray < loopLimit:
+xPointArray[0] = arrayX # "Starting at the point X (1,1)"
+size = xPointArray.shape[0] # Get the number of rows of the array 
+while indexArray < size:
     tempArray = np.array([0,0]) # reset 
     randomValue = np.random.randint(1,7) # Get random number 
 
@@ -55,14 +51,9 @@ while indexArray < loopLimit:
         tempArray = arrayC  
 
     # Calculate midpoint
-    xPointArray[indexArray, xAxis] = (tempArray[xAxis] + xPointArray[indexArray - 1, xAxis]) / 2
-    xPointArray[indexArray, yAxis] = (tempArray[yAxis] + xPointArray[indexArray - 1, yAxis]) / 2
+    xPointArray[indexArray] = (tempArray + xPointArray[indexArray - 1]) / 2
 
     indexArray = indexArray + 1
 
-print("\nX Point values after:\n")
-print(xPointArray)
-
-# Expected outcome: https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle#/media/File:Sierpinski_triangle.svg 
 plt.plot(xPointArray[0:, xAxis], xPointArray[0:, yAxis], '.', color='black')
 plt.show()
