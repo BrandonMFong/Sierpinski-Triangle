@@ -37,12 +37,14 @@ print("\nWeek 1\n=====================\n")
 # "Starting at the point X (1,1)"
 xPointArray[0] = arrayX
 
-print("\nX Point values before:\n")
-print(xPointArray)
+print("c array x value: ", arrayC[xAxis], ", y value: ", arrayC[yAxis])
+print("X point array dimensions: ", xPointArray.shape)
+
+print("\nX Point values before:\n", xPointArray)
 
 while indexArray < loopLimit:
-    tempArray = np.array([0,0])
-    randomValue = np.random.randint(1,6) # Get random number 
+    tempArray = np.array([0,0]) # reset 
+    randomValue = np.random.randint(1,7) # Get random number 
 
     # Assign A, B, or C according to the random dice roll 
     if randomValue == 1 or randomValue == 2:
@@ -52,7 +54,6 @@ while indexArray < loopLimit:
     else:
         tempArray = arrayC  
 
-    # print("Midpoint of ", tempArray, " and ", xPointArray[indexArray - 1])
     # Calculate midpoint
     xPointArray[indexArray, xAxis] = (tempArray[xAxis] + xPointArray[indexArray - 1, xAxis]) / 2
     xPointArray[indexArray, yAxis] = (tempArray[yAxis] + xPointArray[indexArray - 1, yAxis]) / 2
@@ -63,6 +64,5 @@ print("\nX Point values after:\n")
 print(xPointArray)
 
 # Expected outcome: https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle#/media/File:Sierpinski_triangle.svg 
-# TODO figure out why outcome is not looking right  
-plt.plot(xPointArray[0:, xAxis], xPointArray[0:, yAxis], 'o', color='black')
+plt.plot(xPointArray[0:, xAxis], xPointArray[0:, yAxis], '.', color='black')
 plt.show()
